@@ -172,7 +172,19 @@ return response()->json(['success'=> $total]);
 
 
 public function etypeStore(Request $request){
+    // dd($request->input('subject_code'));
+    if(is_null($request->input('subject_code'))){
+
+         return response()->json(['success'=>' Please Subject  select Properly']);
+    }else{
+
   if (is_numeric($request->input('subject_code'))){
+
+    if(is_null($request->input('CENTER_EIIN'))){
+
+         return response()->json(['success'=>' Please Subject  select Properly']);
+    }
+        else{
 
 // dd('number is an integer');
 
@@ -225,16 +237,18 @@ $processes = Receiveomr::where('id', $processexist->id)
 
    }
 
+}
+
    
 } else {
-    return response()->json(['success'=>'Please select center Code and Subject Properly']);
+    return response()->json(['success'=>'Please select Subject Code And center Code Properly']);
 
 }
 
         
 }
 
-
+}
 
 
 public function store(Request $request)

@@ -29,7 +29,7 @@ return new class extends Migration
         array(
             'name' => 'Md Rohul Amin',
             'email' => 'admin',
-            'active' => '0',
+            'active' => '1',
             'password' => Hash::make('a')
         )
     );
