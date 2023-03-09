@@ -33,18 +33,18 @@ return new class extends Migration
         });
 
 
-DB::table('receiveomrs')->insert(
-        array(
-            'CENTER_CODE' => '151',
-            'SUBJECT_CODE' => '501101',
-            'BIMA_NO' => '0000',
-            'BIMA_DATE' => '0000',
-            'ENTRY_DATE' => '2023-03-08',
-            'ENTRY_OMR' => '1',
-            'REST_OMR' => '99',
-            'INSERTED_BY' => 'system'
-        )
-    );
+// DB::table('receiveomrs')->insert(
+//         array(
+//             'CENTER_CODE' => '151',
+//             'SUBJECT_CODE' => '501101',
+//             'BIMA_NO' => '0000',
+//             'BIMA_DATE' => '0000',
+//             'ENTRY_DATE' => '2023-03-08',
+//             'ENTRY_OMR' => '1',
+//             'REST_OMR' => '99',
+//             'INSERTED_BY' => 'system'
+//         )
+//     );
 
 
     }

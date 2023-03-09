@@ -115,7 +115,7 @@ class OmrController extends Controller
 public function getInstitutes(){
 
 $inistitutes = Inistitute::All();
-//dd($inistitutes);
+// dd($inistitutes);
     return response()->json($inistitutes);
 }
 

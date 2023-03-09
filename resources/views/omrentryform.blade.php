@@ -33,6 +33,51 @@
 
       <span class="text-danger">{{ $errors->first('subject_code') }}</span>
 
+
+
+
+      <label for="bima_no">Bima No:</label>
+      <input type="text" id="bima_no" name="bima_no" required>
+       <span class="text-danger">{{ $errors->first('bima_no') }}</span>
+
+      <label for="bima_date">Bima Date:</label>
+      <input type="date" id="bima_date" name="bima_date" required>
+       <span class="text-danger">{{ $errors->first('bima_date') }}</span>
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" required>
+       <span class="text-danger">{{ $errors->first('quantity') }}</span>
+         
+       <button type="submit" id="send_form" class="btn btn-info">Submit</button>
+       <a href="{{url('home')}}" class="btn btn-info">Home</a>
+
+    </div>
+
+    <div class="column font-weigh-bold" style="font-size: 16px; text-transform: uppercase;" >
+        <table class="table table-hover " >
+            <tr ><th>Date:</th><td id="curdate" style="padding-left: 20px;"><?php echo date("Y-m-d");?></td></tr>
+            <tr ><th>CENTER_CODE:</th><td style="padding-left: 20px;" id="center_code"></td></tr>
+            <tr ><th>CENTER_NAME:</th><td style="padding-left: 20px;" id="center_name"></td></tr>
+            <tr ><th>CENTER_EIIN:</th><td style="padding-left: 20px;" id="center_eiin"></td></tr>
+            <tr style="height: 10px" ><th>District:</th><td style="padding-left: 20px;" id="district"></td></tr>
+            <tr style="height: 10px" ><th>Police Station:</th><td style="padding-left: 20px;" id="thana"></td></tr>
+            <tr style="height: 10px" ><th>Contact:</th><td style="padding-left: 20px;" id="phone"></td></tr>
+            <tr ><th>GROUP_NAME:</th><td style="padding-left: 20px;" id="group_name"></td></tr> 
+            <tr ><th>Subject Name :</th><td style="padding-left: 20px;" id="subject_name"></td></tr> 
+            <tr ><th>Total OMR :</th><td style="padding-left: 20px;" id="total_Omr"></td></tr>
+            <tr ><th>Received OMR:</th><td style="padding-left: 20px;" id="receivomr"></td></tr>
+            <tr ><th>Non-Received OMR:</th><td style="padding-left: 20px;" id="nonreceivomr"></td></tr>
+            
+
+        </table>
+       
+    </div>
+  </form>
+
+</section>
+
+
+
 <script type="text/javascript">
 
 // function getSubject(thisVal,e){
@@ -126,32 +171,12 @@ $('.inistitute').select2({
 getInstitutesList();
         function getsubject(){
 
-
-
         }
 
  
 
    
     $('#instituts').change(function () {
-
-
-
-$('#district').empty();
-    $('#thana').empty();
-    $('#phone').empty();
-     $('#total_Omr').empty();
-    $('#center_name').empty();
-     $('#center_code').empty();
-    $('#group_name').empty();
-    $('#subject_name').empty();
-    $('#total_student').empty();
-    $('#center_eiin').empty();
-     $('#receivomr').empty();
-      $('#nonreceivomr').empty();
-    
-
-
 
 
     
@@ -214,7 +239,7 @@ $.ajax({
                    dataType: 'JSON',
                   encode: true,
       success: function(data) {
-        // alert(data[0].SUBJECT_NAME);
+        // alert(data[0].SUBJECT_CODE);
     // Parse the JSON response
     // var data = JSON.parse(data);
 $("#center_code").text(data[0].CENTER_CODE);
@@ -224,16 +249,17 @@ $("#district").text(data[0].DISTRICT);
 $("#thana").text(data[0].THANA);
 $("#phone").text(data[0].PHONE);
 $("#group_name").text(data[0].GROUP_NAME);
-$("#subject_name").text(data[0].SUBJECT_NAME);
+$("#subject_name").text(data[0].SUBJECT_CODE+"=>"+data[0].SUBJECT_NAME);
 var total_std = data[0].TOTAL_STUDENTS+data[1].TOTAL_STUDENTS+data[2].TOTAL_STUDENTS
-
+// alert(total_std);
 $("#total_Omr").text(total_std);
-
+total_std = $("#total_Omr").text();
+//alert(total_std);
       }
 
   });
 
-
+// alert(total_std);
  $.ajax({
                   type: "get",
                   url: "{{url('receivedomr')}}/",
@@ -246,12 +272,17 @@ $("#total_Omr").text(total_std);
     // var data = JSON.parse(data);
         // alert(data.success);
 var totalomr = $('#total_Omr').text();
+if(totalomr==0){
+    $('#subject_code').empty();
+}else{
 $("#receivomr").text(data.success);
+//alert(totalomr-data.success);
 if($("#receivomr").text()==0)
 {
     $("#nonreceivomr").text(totalomr);
 }else
 {$("#nonreceivomr").text(totalomr-data.success);
+}
 }
 
 
@@ -267,6 +298,8 @@ console.log("SUCCESS : ", data.success);
   });
 
 
+
+
 })
 
 
@@ -279,43 +312,7 @@ console.log("SUCCESS : ", data.success);
    
 </script>
 
-      <label for="bima_no">Bima No:</label>
-      <input type="text" id="bima_no" name="bima_no" required>
-       <span class="text-danger">{{ $errors->first('bima_no') }}</span>
 
-      <label for="bima_date">Bima Date:</label>
-      <input type="date" id="bima_date" name="bima_date" required>
-       <span class="text-danger">{{ $errors->first('bima_date') }}</span>
-
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" required>
-       <span class="text-danger">{{ $errors->first('quantity') }}</span>
-         
-       <button type="submit" id="send_form" class="btn btn-info">Submit</button>
-       <a href="{{url('home')}}" class="btn btn-info">Home</a>
-
-    </div>
-
-    <div class="column font-weigh-bold" style="font-size: 16px;" >
-        <table class="table table-hover " ><tr ><th>CENTER_CODE:</th><td style="padding-left: 20px;" id="center_code"></td></tr>
-            <tr ><th>CENTER_NAME:</th><td style="padding-left: 20px;" id="center_name"></td></tr>
-            <tr ><th>CENTER_EIIN:</th><td style="padding-left: 20px;" id="center_eiin"></td></tr>
-            <tr style="height: 10px" ><th>District:</th><td style="padding-left: 20px;" id="district"></td></tr>
-            <tr style="height: 10px" ><th>Police Station:</th><td style="padding-left: 20px;" id="thana"></td></tr>
-            <tr style="height: 10px" ><th>Contact:</th><td style="padding-left: 20px;" id="phone"></td></tr>
-            <tr ><th>GROUP_NAME:</th><td style="padding-left: 20px;" id="group_name"></td></tr> 
-            <tr ><th>Subject Name :</th><td style="padding-left: 20px;" id="subject_name"></td></tr> 
-            <tr ><th>Form-fillup OMR       :</th><td style="padding-left: 20px;" id="total_Omr"></td></tr>
-            <tr ><th>Received OMR:</th><td style="padding-left: 20px;" id="receivomr"></td></tr>
-            <tr ><th>Non-Received OMR:</th><td style="padding-left: 20px;" id="nonreceivomr"></td></tr>
-            <tr ><th>Date:</th><td id="curdate" style="padding-left: 20px;"><?php echo date("Y-m-d");?></td></tr>
-
-        </table>
-       
-    </div>
-  </form>
-
-</section>
 
 
 <script type="text/javascript">
@@ -400,16 +397,16 @@ $('#etypeEntry').on('submit', function(e){
 
       $('#instituts').empty();
           $('#subject_code').empty();
-    $('#center_eiin').empty();
-   $('#district').empty();
-    $('#thana').empty();
-    $('#phone').empty();
-     $('#total_Omr').empty();
-    $('#center_name').empty();
-     $('#center_code').empty();
-    $('#group_name').empty();
-    $('#subject_name').empty();
-    $('#total_student').empty();
+   //  $('#center_eiin').empty();
+   // $('#district').empty();
+   //  $('#thana').empty();
+   //  $('#phone').empty();
+   //   $('#total_Omr').empty();
+   //  $('#center_name').empty();
+   //   $('#center_code').empty();
+   //  $('#group_name').empty();
+   //  $('#subject_name').empty();
+   //  $('#total_student').empty();
     getInstitutesList();
     
 
