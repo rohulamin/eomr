@@ -53,7 +53,7 @@
 
     </div>
 
-    <div class="column font-weigh-bold" style="font-size: 16px; text-transform: uppercase;" >
+    <div class="column font-weigh-bold" style="font-size: 16px; text-transform: uppercase; text-align: left;" >
         <table class="table table-hover " >
             <tr ><th>Date:</th><td id="curdate" style="padding-left: 20px;"><?php echo date("Y-m-d");?></td></tr>
             <tr ><th>Total OMR :</th><td style="padding-left: 20px;" id="total_Omr"></td></tr>
@@ -229,6 +229,8 @@ $.ajax({
     $('#group_name').empty();
     $('#subject_name').empty();
     $('#total_student').empty();
+    $('#receivomr').empty();
+    $('#nonreceivomr').empty();
 
 });
 
@@ -378,7 +380,7 @@ $('#etypeEntry').on('submit', function(e){
 //      var REST_OMR =$('#nonreceivomr').text()-qty;   
 //     }
      var MADRASAH_NAME =$('#center_name').text().substring(4);
-     alert(MADRASAH_NAME);
+     // alert(MADRASAH_NAME);
 
 
 
