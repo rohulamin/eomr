@@ -10,11 +10,12 @@
     border-radius: 15px;
     width: 100%;
     padding: 10px;
+    font-size: 14px;
     background-color: #fff";> 
 <form id="etypeEntry" method="post" action="javascript:void(0)">
       @csrf
        
-      <label for="eiin" style="padding:5px;">EIIN:</label>
+      <label  for="eiin" style="padding:5px;">EIIN:</label>
      <select class="inistitute form-control" id="instituts" name="institutes" style="padding:5px;">
      <option>Search for a institutes</option>
 </select>
@@ -22,13 +23,71 @@
 
 
       <label for="subject_code" style="padding:5px;"> Subject</label>
-      <select type="text" id="subject_code" class="subject form-control" name="subject_code">
+      <select type="text"  id="subject_code" class="subject form-control" name="subject_code">
         <option>Search for a subject_code</option>
       </select>
 
       <span class="text-danger">{{ $errors->first('subject_code') }}</span>
 
       </form>
+
+     
+      
+    </div>
+<div class="table-responsive"  style="border: 1px solid #007646;
+    border-radius: 15px;
+    width: 100%;
+    min-height: 400px;
+    padding: 10px;
+    font-size: 12px;
+    background-color: #fff";>
+     <table class="table table-bordered table-sm border-primary table-hover table-striped" width="100%" id="bodyData">
+       <thead>
+        <tr>
+            <th>id</th>
+            <th style="width:10px;">CENTER_CODE</th>
+            <th>MADRASAH_NAME</th>
+            <th>CENTER_EIIN</th>
+            <th>ADDRESS</th>
+              <th>SUBJECT_CODE</th>
+             <th>BIMA_NO</th>
+             <th>BIMA_DATE</th>
+             <th>ENTRY_DATE</th>
+             <th>ENTRY_OMR</th>
+            <th> INSERTED_BY</th>
+             <th>REST_OMR</th>
+            
+            
+        </tr>
+       </thead>
+       <tbody >    
+    
+                @foreach ($users as $company)
+                    <tr>
+                       <td>{{ $company->id }}</td>
+                        <td>{{ $company->CENTER_CODE }}</td>
+                        <td>{{ $company->MADRASAH_NAME }}</td>
+                        <td>{{ $company->CENTER_EIIN }}</td>
+                        <td>{{ $company->THANA }},{{ $company->DISTRICT }}, {{ $company->PHONE }}</td>
+                        <td>{{ $company->SUBJECT_CODE }}</td>
+                          <td>{{ $company->BIMA_NO }}</td>
+                        <td>{{ $company->BIMA_DATE }}</td>
+                        <td>{{ $company->ENTRY_DATE }}</td>
+                        <td>{{ $company->ENTRY_OMR }}</td>
+                        <td>{{$company->INSERTED_BY}}</td>
+                         <td>{{ $company->REST_OMR }}</td>
+                    </tr>
+                    @endforeach
+            </tbody>
+    </table>
+  <div class=""> {{ $users->links('pagination::tailwind') }}, page no {{$users->currentPage()}}, Total OMR bundle:  {{$users->count()}} of {{$users->total()}},
+</div>
+    
+</div>
+  
+
+</section>
+
 
 <script type="text/javascript">
 
@@ -171,64 +230,7 @@ subjectWise(eiin,subcode);
 });
 
    
-</script>        
-      
-    </div>
-<div class="table-responsive"  style="border: 1px solid #007646;
-    border-radius: 15px;
-    width: 100%;
-    min-height: 400px;
-    padding: 10px;
-    background-color: #fff";>
-     <table class="table table-bordered table-sm border-primary table-hover table-striped" width="100%" id="bodyData">
-       <thead>
-        <tr>
-            <th>id</th>
-            <th style="width:10px;">CENTER_CODE</th>
-            <th>MADRASAH_NAME</th>
-            <th>CENTER_EIIN</th>
-            <th>ADDRESS</th>
-              <th>SUBJECT_CODE</th>
-             <th>BIMA_NO</th>
-             <th>BIMA_DATE</th>
-             <th>ENTRY_DATE</th>
-             <th>ENTRY_OMR</th>
-            <th> INSERTED_BY</th>
-             <th>REST_OMR</th>
-            
-            
-        </tr>
-       </thead>
-       <tbody >    
-    
-                @foreach ($users as $company)
-                    <tr>
-                       <td>{{ $company->id }}</td>
-                        <td>{{ $company->CENTER_CODE }}</td>
-                        <td>{{ $company->MADRASAH_NAME }}</td>
-                        <td>{{ $company->CENTER_EIIN }}</td>
-                        <td>{{ $company->THANA }},{{ $company->DISTRICT }}, {{ $company->PHONE }}</td>
-                        <td>{{ $company->SUBJECT_CODE }}</td>
-                          <td>{{ $company->BIMA_NO }}</td>
-                        <td>{{ $company->BIMA_DATE }}</td>
-                        <td>{{ $company->ENTRY_DATE }}</td>
-                        <td>{{ $company->ENTRY_OMR }}</td>
-                        <td>{{$company->INSERTED_BY}}</td>
-                         <td>{{ $company->REST_OMR }}</td>
-                    </tr>
-                    @endforeach
-            </tbody>
-    </table>
-  <div class=""> {{ $users->links('pagination::tailwind') }}, page no {{$users->currentPage()}}, Total OMR bundle:  {{$users->count()}} of {{$users->total()}},
-</div>
-    
-</div>
-  
 
-</section>
-
-
-<script type="text/javascript">
     
 
 function getData(eiin) {

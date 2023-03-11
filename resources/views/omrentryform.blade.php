@@ -56,17 +56,18 @@
     <div class="column font-weigh-bold" style="font-size: 16px; text-transform: uppercase;" >
         <table class="table table-hover " >
             <tr ><th>Date:</th><td id="curdate" style="padding-left: 20px;"><?php echo date("Y-m-d");?></td></tr>
-            <tr ><th>CENTER_CODE:</th><td style="padding-left: 20px;" id="center_code"></td></tr>
-            <tr ><th>CENTER_NAME:</th><td style="padding-left: 20px;" id="center_name"></td></tr>
-            <tr ><th>CENTER_EIIN:</th><td style="padding-left: 20px;" id="center_eiin"></td></tr>
-            <tr style="height: 10px" ><th>District:</th><td style="padding-left: 20px;" id="district"></td></tr>
-            <tr style="height: 10px" ><th>Police Station:</th><td style="padding-left: 20px;" id="thana"></td></tr>
-            <tr style="height: 10px" ><th>Contact:</th><td style="padding-left: 20px;" id="phone"></td></tr>
-            <tr ><th>GROUP_NAME:</th><td style="padding-left: 20px;" id="group_name"></td></tr> 
-            <tr ><th>Subject Name :</th><td style="padding-left: 20px;" id="subject_name"></td></tr> 
             <tr ><th>Total OMR :</th><td style="padding-left: 20px;" id="total_Omr"></td></tr>
             <tr ><th>Received OMR:</th><td style="padding-left: 20px;" id="receivomr"></td></tr>
-            <tr ><th>Non-Received OMR:</th><td style="padding-left: 20px;" id="nonreceivomr"></td></tr>
+            <tr ><th>Rest OMR:</th><td style="padding-left: 20px;" id="nonreceivomr"></td></tr>
+           <!--  <tr ><th>CENTER_CODE:</th><td style="padding-left: 20px;" id="center_code"></td></tr> -->
+            <tr ><th>CENTER_NAME:</th><td style="padding-left: 20px;" id="center_name"></td></tr>
+            <tr ><th>GROUP:</th><td style="padding-left: 20px;" id="group_name"></td></tr> 
+            <tr ><th>Subject:</th><td style="padding-left: 20px;" id="subject_name"></td></tr> 
+            <tr ><th>CENTER_EIIN:</th><td style="padding-left: 20px;" id="center_eiin"></td></tr>
+            <tr style="height: 10px" ><th>District:</th><td style="padding-left: 20px;" id="district"></td></tr>
+            <tr style="height: 10px" ><th>Thana:</th><td style="padding-left: 20px;" id="thana"></td></tr>
+            <tr style="height: 10px" ><th>Contact:</th><td style="padding-left: 20px;" id="phone"></td></tr>
+                
             
 
         </table>
@@ -217,6 +218,18 @@ $.ajax({
     }).join('');
   }
  });
+
+ $('#center_eiin').empty();
+   $('#district').empty();
+    $('#thana').empty();
+    $('#phone').empty();
+     $('#total_Omr').empty();
+    $('#center_name').empty();
+     $('#center_code').empty();
+    $('#group_name').empty();
+    $('#subject_name').empty();
+    $('#total_student').empty();
+
 });
 
 
@@ -243,7 +256,7 @@ $.ajax({
     // Parse the JSON response
     // var data = JSON.parse(data);
 $("#center_code").text(data[0].CENTER_CODE);
-$("#center_name").text(data[0].MADRASAH_NAME);
+$("#center_name").text(data[0].CENTER_CODE+"-"+data[0].MADRASAH_NAME);
 $("#center_eiin").text(data[0].CENTER_EIIN);
 $("#district").text(data[0].DISTRICT);
 $("#thana").text(data[0].THANA);
@@ -259,7 +272,7 @@ total_std = $("#total_Omr").text();
 
   });
 
-// alert(total_std);
+
  $.ajax({
                   type: "get",
                   url: "{{url('receivedomr')}}/",
@@ -337,11 +350,16 @@ $(document).ready(function () {
 $('#etypeEntry').on('submit', function(e){
             e.preventDefault();
 
+
+             $('#res_message').hide();
+            $('#msg_div').hide();
+
             var CENTER_EIIN =$('#center_eiin').text();
 
 
  $('#send_form').html('Submit----------------------------->');
-            
+   
+
 
   var bimano =$('#bima_no').val();
    var bimadate =$('#bima_date').val();
@@ -359,7 +377,8 @@ $('#etypeEntry').on('submit', function(e){
 //     }else{
 //      var REST_OMR =$('#nonreceivomr').text()-qty;   
 //     }
-     var MADRASAH_NAME =$('#center_name').text();
+     var MADRASAH_NAME =$('#center_name').text().substring(4);
+     alert(MADRASAH_NAME);
 
 
 
@@ -387,6 +406,7 @@ $('#etypeEntry').on('submit', function(e){
         data: data,
         success: function( response ) {
             $('#send_form').html('Submit');
+            $('#msg_div').show()
             $('#res_message').show();
             $('#res_message').html(response.success);
             $('#msg_div').removeClass('d-none');
@@ -411,9 +431,9 @@ $('#etypeEntry').on('submit', function(e){
     
 
             setTimeout(function(){
-            $('#res_message').hide();
-            $('#msg_div').hide();
-            },10000);
+            // $('#res_message').hide();
+            // $('#msg_div').hide();
+            },100);
         }
       });
 

@@ -114,8 +114,10 @@ class OmrController extends Controller
 
 public function getInstitutes(){
 
-$inistitutes = Inistitute::All();
-// dd($inistitutes);
+$inistitutes = Inistitute::distinct()->select('CENTER_CODE','MADRASAH_NAME')->orderBy('CENTER_CODE', 'asc')->get();
+//dd($inistitutes);
+//->distinct()->orderBy('CENTER_CODE', 'asc')  value: item.CENTER_CODE,
+ //       text: item.MADRASAH_NAME
     return response()->json($inistitutes);
 }
 
