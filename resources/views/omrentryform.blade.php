@@ -87,24 +87,12 @@
 
 function getInstitutesList(){
 
-        // var global_group_code;
-        // var global_madrasa_name;
+      
 
 $('.inistitute').select2({
             placeholder: 'Search for a institutes',
             allowClear: true
         });
-
-//  $("select.inistitute").change(function(){
-//       global_eiin = $(this).children("option:selected").val();
-//        var madrasa_name = $(this).children("option:selected").text();
-//         global_madrasa_name = madrasa_name.substring(3);
-//         $('#madrasa_info').html(global_madrasa_name);
-   
-
-        
-// });
-
 
 
  $.ajax({
@@ -136,34 +124,7 @@ $('.inistitute').select2({
   }
  });
 
-//    var global_eiin = $(this).children("option:selected").val();
-//   var url = "{{url('subject')}}/"+global_eiin;
 
-// alert(url+global_eiin);
-
-//         $('.subject').select2({
-
-//             placeholder: 'Search for a Subject Code',
-//             allowClear: true,
-//             ajax: {
-//                 url: url,
-//                 dataType: 'json',
-//                 processResults: function (data) {
-                   
-//                     return {
-//                         results: $.map(data, function (item) {
-//                             return {
-//                                 text: item.SUBJECT_CODE+'-'+item.SUBJECT_NAME,
-//                                 id: item.SUBJECT_CODE
-                                
-//                             }
-                           
-//                         })
-//                     };
-//                 }
-
-//             }
-//         });
 }
 
 
@@ -197,10 +158,6 @@ $.ajax({
                    dataType: 'JSON',
                   encode: true,
       success: function(data) {
-    // Parse the JSON response
-    //var data = JSON.parse(response);
-//$('#instituts').find('option').remove().end()
-    // Use map() to iterate over the data and transform values
     var transformedData = data.map(function(item) {
       // Do some transformations on the item
       return {
@@ -254,25 +211,21 @@ $.ajax({
                    dataType: 'JSON',
                   encode: true,
       success: function(data) {
-        // alert(data[0].SUBJECT_CODE);
-    // Parse the JSON response
-    // var data = JSON.parse(data);
-$("#center_code").text(data[0].CENTER_CODE);
-$("#center_name").text(data[0].CENTER_CODE+"-"+data[0].MADRASAH_NAME);
-$("#center_eiin").text(data[0].CENTER_EIIN);
-$("#district").text(data[0].DISTRICT);
-$("#thana").text(data[0].THANA);
-$("#phone").text(data[0].PHONE);
-$("#group_name").text(data[0].GROUP_NAME);
-$("#subject_name").text(data[0].SUBJECT_CODE+"=>"+data[0].SUBJECT_NAME);
-var total_std = data[0].TOTAL_STUDENTS+data[1].TOTAL_STUDENTS+data[2].TOTAL_STUDENTS
-// alert(total_std);
+    $("#center_code").text(data[0].CENTER_CODE);
+    $("#center_name").text(data[0].CENTER_CODE+"-"+data[0].MADRASAH_NAME);
+    $("#center_eiin").text(data[0].CENTER_EIIN);
+    $("#district").text(data[0].DISTRICT);
+    $("#thana").text(data[0].THANA);
+    $("#phone").text(data[0].PHONE);
+    $("#group_name").text(data[0].GROUP_NAME);
+    $("#subject_name").text(data[0].SUBJECT_CODE+"=>"+data[0].SUBJECT_NAME);
+var total_std = data[0].TOTAL_STUDENTS+data[1].TOTAL_STUDENTS+data[2].TOTAL_STUDENTS;
+var totalomr =total_std;
+// alert("Total Student-"+total_std);
 $("#total_Omr").text(total_std);
-total_std = $("#total_Omr").text();
+// total_std = $("#total_Omr").text();
 //alert(total_std);
-      }
 
-  });
 
 
  $.ajax({
@@ -286,19 +239,18 @@ total_std = $("#total_Omr").text();
     // Parse the JSON response
     // var data = JSON.parse(data);
         // alert(data.success);
-var totalomr = $('#total_Omr').text();
-if(totalomr==0){
-    $('#subject_code').empty();
-}else{
-$("#receivomr").text(data.success);
-//alert(totalomr-data.success);
-if($("#receivomr").text()==0)
-{
+ var omr = $('#total_Omr').text(total_std);
+
+ if(data.success==0){
     $("#nonreceivomr").text(totalomr);
-}else
-{$("#nonreceivomr").text(totalomr-data.success);
-}
-}
+    $("#receivomr").text(data.success);
+ }
+ else{
+   $("#nonreceivomr").text(totalomr-data.success);
+   $("#receivomr").text(data.success); 
+ }
+ // alert(totalomr);
+
 
 
 
@@ -311,6 +263,14 @@ console.log("SUCCESS : ", data.success);
       }
 
   });
+
+
+
+      }
+
+  });
+
+
 
 
 
