@@ -20,7 +20,7 @@
               <span id="res_message" style="font-size:16px; text-transform: capitalize;"></span>
       </div>
       <label for="eiin">Center Code:</label>
-     <select class="inistitute form-control" id="instituts" name="institutes">
+     <select class="inistitute form-control" id="instituts" name="institutes" >
      <option>Search for a institutes</option>
 </select>
  <span class="text-danger">{{ $errors->first('institutes') }}</span>
@@ -85,6 +85,13 @@
 //     alert('hi');
 // }
 
+
+$('.subject').select2({
+            placeholder: 'Search for a institutes',
+            allowClear: true
+        });
+
+
 function getInstitutesList(){
 
       
@@ -93,7 +100,6 @@ $('.inistitute').select2({
             placeholder: 'Search for a institutes',
             allowClear: true
         });
-
 
  $.ajax({
                   type: "get",
@@ -104,7 +110,7 @@ $('.inistitute').select2({
       success: function(data) {
     // Parse the JSON response
     //var data = JSON.parse(response);
-//$('#instituts').find('option').remove().end()
+// $('#instituts').find('option').remove().end()
     // Use map() to iterate over the data and transform values
     var transformedData = data.map(function(item) {
       // Do some transformations on the item
@@ -125,32 +131,22 @@ $('.inistitute').select2({
  });
 
 
+
 }
 
+function getSubjectList(){
 
-    $(document).ready(function() {
-        
-getInstitutesList();
-        function getsubject(){
 
-        }
-
- 
-
-   
     $('#instituts').change(function () {
 
-
     
-$('.subject').select2({
-            placeholder: 'Search for a institutes',
-            allowClear: true
-        });
-
-
-    var eiin =$(this).val();
-  var url = "{{url('subject')}}/"+eiin;
- 
+    var center_code =$(this).val();
+// alert(center_code);
+  var url = "{{url('subject')}}/"+center_code;
+ var data ={
+      center_code: center_code,
+     _token:  '{{ csrf_field() }}'
+    };
 $.ajax({
                   type: "get",
                   url: url,
@@ -190,6 +186,15 @@ $.ajax({
     $('#nonreceivomr').empty();
 
 });
+}
+
+
+    $(document).ready(function() {
+        
+getInstitutesList();
+ 
+getSubjectList();
+   
 
 
      $('#subject_code').change(function () { 
@@ -227,7 +232,15 @@ $("#total_Omr").text(total_std);
 //alert(total_std);
 
 
-
+var subcode =$('#subject_code').children("option:selected").val();
+    var eiin = $('#instituts').children("option:selected").val();
+    // alert(subcode+eiin);
+     var data =  {
+      subcode: subcode,
+      eiin:eiin,
+      _token:  '{{ csrf_field() }}'
+    };
+  
  $.ajax({
                   type: "get",
                   url: "{{url('receivedomr')}}/",
@@ -240,12 +253,14 @@ $("#total_Omr").text(total_std);
     // var data = JSON.parse(data);
         // alert(data.success);
  var omr = $('#total_Omr').text(total_std);
-
+// alert(data.success);
  if(data.success==0){
+    // alert(data.success);
     $("#nonreceivomr").text(totalomr);
     $("#receivomr").text(data.success);
  }
  else{
+      // alert(totalomr);
    $("#nonreceivomr").text(totalomr-data.success);
    $("#receivomr").text(data.success); 
  }
@@ -282,16 +297,8 @@ console.log("SUCCESS : ", data.success);
 });
 
 
-
-
    
-</script>
 
-
-
-
-<script type="text/javascript">
-    
 $(document).ready(function () {
 
 // $('#etypeEntry').on('submit', function(e){

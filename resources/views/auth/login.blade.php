@@ -20,7 +20,7 @@
       </div>
       <label for="eiin">User ID</label>
      <select class="inistitute form-control" id="instituts" name="email">
-     <option>User ID</option>
+     
 </select>
  <span class="text-danger">{{ $errors->first('institutes') }}</span>
 
@@ -97,36 +97,6 @@
 
 
 
-
-
-
-
-
-
-
-
-function getWelcome(){
-
-var dd = new Date();
-    var hh = dd.getHours();
-
-    if(hh >0){
-      $('#morningtune').text("Login with Good Morning ");
-       }else if(hh >11){
-        $('#morningtune').text("Login with Good Afternoon ");
-
-    }else if(hh > 20){
-      $('#morningtune').text("Login with Good Evening ");
-
-}else{
-  $('#morningtune').text("Login with Good Night ");
- };
-
-};
-
-
-
-
     $(document).ready(function() {
 
 
@@ -135,6 +105,7 @@ $('.inistitute').select2({
             placeholder: 'Search for a User',
             allowClear: true
         });
+
 
  $.ajax({
                   type: "get",
@@ -156,7 +127,7 @@ $('.inistitute').select2({
 
     // Generate HTML options using the transformed data and add them to the <select> element
     selectElement.innerHTML = transformedData.map(function(item) {
-      return '<option onchange ="getsubject()"  value="' + item.value + '">' + item.value +'=> '+item.text+ '</option>';
+      return '<option  onchange ="getsubject()"  value="' + item.value + '">' + item.value +'=> '+item.text+ '</option>';
     }).join('');
   }
  });
@@ -185,7 +156,7 @@ $('.inistitute').select2({
 <script type="text/javascript">
     
 $(document).ready(function () {
-
+$("#select2-instituts-container").val("");
   
 $('#login').on('submit', function(e){
               e.preventDefault();

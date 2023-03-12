@@ -34,7 +34,7 @@ Route::get('/omr', [OmrController::class, 'omrEntryForm']);
 Route::get('/dashboard', [OmrController::class, 'omrEntryForm']);
 Route::get('/institutes', [OmrController::class, 'getInstitutes']);
 Route::get('/subject/undefined', [OmrController::class, 'getSubjectUd']);
-Route::get('/subject/{eiin}', [OmrController::class, 'getSubject']);
+Route::get('/subject/{e}', [OmrController::class, 'getSubject']);
 Route::get('/institutesinfo', [OmrController::class, 'getInstitutesInfo']);
 Route::get('/receivedomr', [OmrController::class, 'getReceiveOmr']);
 Route::get('/save-form', [OmrController::class, 'etypeStore']);

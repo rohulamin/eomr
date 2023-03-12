@@ -92,14 +92,15 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+
+    //$('#instituts').empty(); 
+    //$('#instituts option').remove();
+ // $("#instituts").selectmenu('refresh', true);
+
         var global_eiin;
         var global_group_code;
         var global_madrasa_name;
 
-$('.inistitute').select2({
-            placeholder: 'Search for a institutes',
-            allowClear: true
-        });
 
 
 
@@ -129,10 +130,17 @@ $('.inistitute').select2({
     selectElement.innerHTML = transformedData.map(function(item) {
       return '<option onchange ="getsubject()"  value="' + item.value + '">' + item.value +' '+item.text+ '</option>';
     }).join('');
+
+$('.inistitute').select2({
+            placeholder: 'Search for a institutes',
+            allowClear: true
+        });
+
+    
   }
  });
 
-      
+   //$('#instituts').empty();   
    
   var url = "{{url('subject')}}/"+global_eiin;
 
@@ -162,12 +170,12 @@ $('.inistitute').select2({
             }
         });
 
-    });
 
-        
- $(document).ready(function() {
+
+   $('#instituts').change(function () {      
+ 
    
-    $('#instituts').change(function () { 
+    
     
 $('.subject').select2({
             placeholder: 'Search for a institutes',
@@ -209,6 +217,7 @@ $.ajax({
 
 
 getData(eiin);
+  
     
   
  });

@@ -122,6 +122,9 @@ $inistitutes = Inistitute::distinct()->select('CENTER_CODE','MADRASAH_NAME')->or
 }
 
 public function getSubject($eiin){
+    // $center_code = $request->get('center_code');
+    // dd($request->all());
+    // dd($center_code);
    $group_code = Inistitute::pluck('GROUP_CODE')->toArray();
 $group_code = Inistitute::where('CENTER_CODE',$eiin)->pluck('GROUP_CODE')->toArray();
 // dd($group_code);
@@ -161,6 +164,7 @@ $empData.='<b>Madrasah Name : </b>'.$stdInfo[0]->MADRASAH_NAME.'<b> CENTER_CODE:
 }
 
 public function getReceiveOmr(Request $request){
+    // dd($request->all());
 $center_code = $request->get('eiin');
 $sub = $request->get('subcode');
 
